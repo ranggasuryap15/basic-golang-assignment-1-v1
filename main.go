@@ -19,17 +19,18 @@ func Login(id string, name string) string {
 	}
 
 	if id == "" || name == "" {
-		statusLogin = "ID, Name or Major is undefined!"
+		statusLogin = "ID or Name is undefined!"
 	}
 
 	students = strings.Split(Students, ", ")
 
 	for i := 0; i < len(students); i++ {
-		if strings.Split(students[i], "_")[0] != id {
+		if strings.Split(students[i], "_")[0] != id && strings.Split(students[i], "_")[1] != name {
 			statusLogin = "Login gagal: data mahasiswa tidak ditemukan"
+			break
 		} else {
 			statusLogin = "Login berhasil: " + name + " (" + strings.Split(students[i], "_")[2] + ")"
-			break
+			// break
 		}
 	}
 	return statusLogin // TODO: replace this
@@ -41,25 +42,25 @@ func Register(id string, name string, major string) string {
 	var statusRegister string
 	var students[] string
 
-	if len(id) < 5 {
-		statusRegister = "ID must be 5 characters long!"
-	}
-
-	if id == "" || name == "" || major == "" {
-		statusRegister = "ID, Name or Major is undefined!"
-	}
-
 	students = strings.Split(Students, ", ")
 
-	for i := 0; i < len(students); i++ {
-		if strings.Split(students[i], "_")[0] == id {
-			statusRegister = "Register gagal: id sudah digunakan"
-			break
-		} else {
-			statusRegister = "Register berhasil: " + name + " (" + major + ")"
+	if id == "" && name == "" && major == "" {
+		statusRegister = "ID, Name or Major is undefined!"
+	} else {
+		for i := 0; i < len(students); i++ {
+			if strings.Split(students[i], "_")[0] == id {
+				statusRegister = "Registrasi gagal: id sudah digunakan"
+				break
+			} else {
+				if len(id) < 5 || len(id) > 5 {
+					statusRegister = "ID must be 5 characters long!"
+				} else {
+					statusRegister = "Registrasi berhasil: " + name + " (" + major + ")"
+				}
+			}
 		}
 	}
-	
+
 	return statusRegister // TODO: SELESAI REGISTER
 }
 
