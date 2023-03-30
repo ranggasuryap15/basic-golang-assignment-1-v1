@@ -68,21 +68,20 @@ func GetStudyProgram(code string) string {
 	var statusGetStudyProgram string
 	var studyPrograms[] string
 
-	if code == "" {
-		statusGetStudyProgram = "Code is undefined"
-	} 
-
 	studyPrograms = strings.Split(StudentStudyPrograms, ", ")
 
-	for i := 0; i < len(studyPrograms); i++ {
-		if strings.Split(studyPrograms[i], "_")[0] == code {
-			statusGetStudyProgram = strings.Split(studyPrograms[i], "_")[1]
-			break
-		} else {
-			statusGetStudyProgram = "Study tidak ditemukan"
+	if code == "" {
+		statusGetStudyProgram = "Code is undefined"
+	} else {
+		for i := 0; i < len(studyPrograms); i++ {
+			if strings.Split(studyPrograms[i], "_")[0] == code {
+				statusGetStudyProgram = strings.Split(studyPrograms[i], "_")[1]
+				break
+			} else {
+				statusGetStudyProgram = "Study tidak ditemukan"
+			}
 		}
 	}
-
 	return statusGetStudyProgram // TODO: replace this
 }
 
