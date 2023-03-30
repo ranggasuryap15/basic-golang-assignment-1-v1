@@ -42,7 +42,7 @@ func Register(id string, name string, major string) string {
 		}
 	}
 	
-	return statusRegister // TODO: replace this
+	return statusRegister // TODO: SELESAI REGISTER
 }
 
 func GetStudyProgram(code string) string {
