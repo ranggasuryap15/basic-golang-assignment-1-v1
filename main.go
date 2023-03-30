@@ -40,8 +40,6 @@ func Login(id string, name string) string {
 func Register(id string, name string, major string) string {
 	var statusRegister string
 	var students[] string
-	// var studentDetails[] string
-	// var studentID[] string
 
 	if len(id) < 5 {
 		statusRegister = "ID must be 5 characters long!"
@@ -66,7 +64,25 @@ func Register(id string, name string, major string) string {
 }
 
 func GetStudyProgram(code string) string {
-	return "" // TODO: replace this
+	var statusGetStudyProgram string
+	var studyPrograms[] string
+
+	if code == "" {
+		statusGetStudyProgram = "Code is undefined"
+	}
+
+	studyPrograms = strings.Split(StudentStudyPrograms, ", ")
+
+	for i := 0; i < len(studyPrograms); i++ {
+		if strings.Split(studyPrograms[i], "_")[0] == code {
+			statusGetStudyProgram = strings.Split(studyPrograms[i], "_")[1]
+			break
+		} else {
+			statusGetStudyProgram = "Study tidak ditemukan"
+		}
+	}
+
+	return statusGetStudyProgram // TODO: replace this
 }
 
 func main() {
