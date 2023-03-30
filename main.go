@@ -16,20 +16,17 @@ func Login(id string, name string) string {
 
 	students = strings.Split(Students, ", ")
 
-	if id == "" && name == "" {
+	if id == "" || name == "" {
 		statusLogin = "ID or Name is undefined!"
+	} else if len(id) != 5 {
+		statusLogin = "ID must be 5 characters long!"
 	} else {
 		for i := 0; i < len(students); i++ {
-			if len(id) != 5 {
-				statusLogin = "ID must be 5 characters long!"
+			if strings.Split(students[i], "_")[0] == id && strings.Split(students[i], "_")[1] == name {
+				statusLogin = "Login berhasil: " + name + " (" + strings.Split(students[i], "_")[2] + ")"
+				break
 			} else {
-				if strings.Split(students[i], "_")[0] == id && strings.Split(students[i], "_")[1] == name {
-					statusLogin = "Login berhasil: " + name + " (" + strings.Split(students[i], "_")[2] + ")"
-					break
-				} else {
-					statusLogin = "Login gagal: data mahasiswa tidak ditemukan"
-					break
-				}
+				statusLogin = "Login gagal: data mahasiswa tidak ditemukan"
 			}
 		}
 	}
@@ -44,23 +41,20 @@ func Register(id string, name string, major string) string {
 
 	students = strings.Split(Students, ", ")
 
-	if id == "" && name == "" && major == "" {
+	if id == "" || name == "" || major == "" {
 		statusRegister = "ID, Name or Major is undefined!"
+	} else if len(id) != 5 {
+		statusRegister = "ID must be 5 characters long!"
 	} else {
 		for i := 0; i < len(students); i++ {
 			if strings.Split(students[i], "_")[0] == id {
 				statusRegister = "Registrasi gagal: id sudah digunakan"
 				break
 			} else {
-				if len(id) != 5 {
-					statusRegister = "ID must be 5 characters long!"
-				} else {
-					statusRegister = "Registrasi berhasil: " + name + " (" + major + ")"
-				}
+				statusRegister = "Registrasi berhasil: " + name + " (" + major + ")"
 			}
 		}
 	}
-
 	return statusRegister // TODO: SELESAI REGISTER
 }
 
@@ -71,7 +65,7 @@ func GetStudyProgram(code string) string {
 	studyPrograms = strings.Split(StudentStudyPrograms, ", ")
 
 	if code == "" {
-		statusGetStudyProgram = "Code is undefined"
+		statusGetStudyProgram = "Code is undefined!"
 	} else {
 		for i := 0; i < len(studyPrograms); i++ {
 			if strings.Split(studyPrograms[i], "_")[0] == code {
