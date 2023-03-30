@@ -11,8 +11,28 @@ var Students string = "A1234_Aditira_TI, B2131_Dito_TK, A3455_Afis_MI"
 var StudentStudyPrograms string = "TI_Teknik Informatika, TK_Teknik Komputer, SI_Sistem Informasi, MI_Manajemen Informasi"
 
 func Login(id string, name string) string {
+	var statusLogin string
+	var students[] string
 
-	return "" // TODO: replace this
+	if len(id) < 5 {
+		statusLogin = "ID must be 5 characters long!"
+	}
+
+	if id == "" || name == "" {
+		statusLogin = "ID, Name or Major is undefined!"
+	}
+
+	students = strings.Split(Students, ", ")
+
+	for i := 0; i < len(students); i++ {
+		if strings.Split(students[i], "_")[0] != id {
+			statusLogin = "Login gagal: data mahasiswa tidak ditemukan"
+		} else {
+			statusLogin = "Login berhasil: " + name + " (" + strings.Split(students[i], "_")[2] + ")"
+			break
+		}
+	}
+	return statusLogin // TODO: replace this
 }
 
 
